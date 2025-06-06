@@ -82,6 +82,16 @@ class GestorBibliotecaTest extends TestCase
         $this->assertEquals("cien años de soledad x2",$result);
     }
 
+    /**
+     * @test
+     */
+    public function instruccionDevolverConLibroConVariosEjemplaresDevuelveLibroConNuevaCantidad()
+    {
+        $this->gestor->gestionarBiblioteca("prestar fundacion 4");
+        $result = $this->gestor->gestionarBiblioteca("devolver fundacion");
+        $this->assertEquals("fundacion x3",$result);
+    }
+
 
 }
 

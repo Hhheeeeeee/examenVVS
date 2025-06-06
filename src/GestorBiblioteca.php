@@ -12,7 +12,6 @@ class GestorBiblioteca
         $instruccionPrincipal = $partes[0];
 
         if (count($partes) > 3) {
-            var_dump(array_key_last($partes));
             $cantidad = is_numeric($partes[array_key_last($partes)]) ? (int)$partes[array_key_last($partes)] : 1;
             $titulo = "";
             for ($i = 1; $i < count($partes)-1; $i++) {
@@ -60,7 +59,11 @@ class GestorBiblioteca
         if (!isset($this->libros[$titulo])) {
             return "El libro indicado no está en préstamo";
         }
-        unset($this->libros[$titulo]);
+        else if($this->libros[$titulo] == 1){
+            unset($this->libros[$titulo]);
+            return $this->printLibros();
+        }
+        $this->libros[$titulo]--;
         return $this->printLibros();
     }
 
