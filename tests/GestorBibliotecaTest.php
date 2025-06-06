@@ -33,6 +33,15 @@ class GestorBibliotecaTest extends TestCase
         $this->assertEquals("dune x3",$result);
     }
 
+    /**
+     * @test
+     */
+    public function instruccionDevolverConTituloNoRegistradoDevuelveAdvertencia()
+    {
+        $result = $this->gestor->gestionarBiblioteca("devolver dune");
+        $this->assertEquals("El libro indicado no está en préstamo",$result);
+    }g
+
 
 }
 

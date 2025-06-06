@@ -12,6 +12,7 @@ class GestorBiblioteca
         $instruccionPrincipal = $partes[0];
         $titulo = strtolower($partes[1]) ?? "";
         $cantidad = $partes[2] ?? 1;
+
         if ($instruccionPrincipal == "prestar"){
             if (!isset($this->libros[$titulo])){
                 $this->libros[$titulo] = $cantidad;
@@ -21,6 +22,9 @@ class GestorBiblioteca
                 $this->libros[$titulo] += $cantidad;
                 return $this->printLibros();
             }
+        }
+        else {
+            return "El libro indicado no está en préstamo";
         }
 
         return null;
