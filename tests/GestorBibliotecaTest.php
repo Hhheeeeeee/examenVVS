@@ -17,7 +17,7 @@ class GestorBibliotecaTest extends TestCase
     /**
      * @test
      */
-    public function instruccionPrestarConTituloDevuelveLibroPrestado()
+    public function instruccionPrestarConTituloDevuelveLibroConCantidad()
     {
         $result = $this->gestor->gestionarBiblioteca("prestar dune");
         $this->assertEquals("dune x1",$result);
@@ -36,7 +36,7 @@ class GestorBibliotecaTest extends TestCase
     /**
      * @test
      */
-    public function instruccionDevolverConTituloNoRegistradoDevuelveAdvertencia()
+    public function instruccionDevolverConTituloNoRegistradoDevuelveMensaje()
     {
         $result = $this->gestor->gestionarBiblioteca("devolver dune");
         $this->assertEquals("El libro indicado no está en préstamo",$result);
@@ -66,7 +66,7 @@ class GestorBibliotecaTest extends TestCase
     /**
      * @test
      */
-    public function instruccionPrestarConMultiplesLibrosDevuelveListaLibrosConEjemplaresOrdenados()
+    public function instruccionPrestarConMultiplesLibrosDevuelveLibrosConEjemplaresOrdenados()
     {
         $this->gestor->gestionarBiblioteca("prestar fundacion 2");
         $result = $this->gestor->gestionarBiblioteca("prestar dune 3");

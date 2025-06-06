@@ -10,19 +10,10 @@ class GestorBiblioteca
     {
         $partes = explode(" ", $instruccion);
         $instruccionPrincipal = $partes[0];
+        $cantidad = count($partes)>=3 && is_numeric($partes[array_key_last($partes)])
+            ? (int)$partes[array_key_last($partes)] : 1;
 
-        if (count($partes) > 3) {
-            $cantidad = is_numeric($partes[array_key_last($partes)]) ? (int)$partes[array_key_last($partes)] : 1;
-            $titulo = "";
-            for ($i = 1; $i < count($partes)-1; $i++) {
-                $titulo .= " ". strtolower($partes[$i]);
-            }
-            $titulo = trim($titulo);
-        }
-        else {
-            $titulo = isset($partes[1])? strtolower($partes[1]) : "";
-            $cantidad = count($partes)==3 ? (int)$partes[array_key_last($partes)] : 1;
-        }
+        $titulo = $this->obtenerTitulo($partes);
 
 
         if ($instruccionPrincipal == "prestar"){
@@ -37,7 +28,6 @@ class GestorBiblioteca
             return $this->printLibros();
         }
 
-        return null;
     }
 
     public function printLibros():string
@@ -59,12 +49,12 @@ class GestorBiblioteca
         if (!isset($this->libros[$titulo])) {
             return "El libro indicado no está en préstamo";
         }
-        else if($this->libros[$titulo] == 1){
-            unset($this->libros[$titulo]);
-            return $this->printLibros();
-        }
         $this->libros[$titulo]--;
+        if ($this->libros[$titulo] <= 0) {
+            unset($this->libros[$titulo]);
+        }
         return $this->printLibros();
+
     }
 
     public function prestarLibro(string $titulo, int|string $cantidad): string
@@ -75,6 +65,24 @@ class GestorBiblioteca
         }
         $this->libros[$titulo] += $cantidad;
         return $this->printLibros();
+    }
+
+    /**
+     * @param array $partes
+     * @return string
+     */
+    public function obtenerTitulo(array $partes): string
+    {
+        if (count($partes) > 3) {
+            $titulo = "";
+            for ($i = 1; $i < count($partes) - 1; $i++) {
+                $titulo .= " " . strtolower($partes[$i]);
+            }
+            $titulo = trim($titulo);
+        } else {
+            $titulo = isset($partes[1]) ? strtolower($partes[1]) : "";
+        }
+        return $titulo;
     }
 
 
