@@ -63,6 +63,16 @@ class GestorBibliotecaTest extends TestCase
         $this->assertEmpty($result);
     }
 
+    /**
+     * @test
+     */
+    public function instruccionPrestarConMultiplesLibrosDevuelveListaLibrosConEjemplaresOrdenados()
+    {
+        $this->gestor->gestionarBiblioteca("prestar fundacion 2");
+        $result = $this->gestor->gestionarBiblioteca("prestar dune 3");
+        $this->assertEquals("dune x3, fundacion x2",$result);
+    }
+
 
 }
 
