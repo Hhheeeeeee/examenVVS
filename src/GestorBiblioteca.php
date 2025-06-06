@@ -21,7 +21,8 @@ class GestorBiblioteca
             return $this->devolverLibro($titulo);
         }
         else{
-            return "";
+            $this->libros = [];
+            return $this->printLibros();
         }
 
         return null;
@@ -41,10 +42,6 @@ class GestorBiblioteca
         return $itemsInList;
     }
 
-    /**
-     * @param string $titulo
-     * @return string
-     */
     public function devolverLibro(string $titulo): string
     {
         if (!isset($this->libros[$titulo])) {
@@ -54,11 +51,6 @@ class GestorBiblioteca
         return $this->printLibros();
     }
 
-    /**
-     * @param string $titulo
-     * @param int|string $cantidad
-     * @return string
-     */
     public function prestarLibro(string $titulo, int|string $cantidad): string
     {
         if (!isset($this->libros[$titulo])) {
