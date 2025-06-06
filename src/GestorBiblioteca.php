@@ -23,8 +23,10 @@ class GestorBiblioteca
                 return $this->printLibros();
             }
         }
-        else {
-            return "El libro indicado no está en préstamo";
+        else if ($instruccionPrincipal == "devolver"){
+            if (!isset($this->libros[$titulo])){
+                return "El libro indicado no está en préstamo";
+            }
         }
 
         return null;
