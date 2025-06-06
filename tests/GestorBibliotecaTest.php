@@ -17,7 +17,7 @@ class GestorBibliotecaTest extends TestCase
     /**
      * @test
      */
-    public function instruccionPrestarConTituloDevuelveLibroConCantidad()
+    public function instruccionPrestarConLibroNoRegistradoDevuelveLibroConCantidad()
     {
         $result = $this->gestor->gestionarBiblioteca("prestar dune");
         $this->assertEquals("dune x1",$result);
@@ -26,7 +26,7 @@ class GestorBibliotecaTest extends TestCase
     /**
      * @test
      */
-    public function instruccionPrestarConTituloExistenteDevuelveLibroPrestadoConNuevaCantidad()
+    public function instruccionPrestarConLibroExistenteDevuelveLibroConNuevaCantidad()
     {
         $result = $this->gestor->gestionarBiblioteca("prestar dune");
         $result = $this->gestor->gestionarBiblioteca("prestar Dune 2");
