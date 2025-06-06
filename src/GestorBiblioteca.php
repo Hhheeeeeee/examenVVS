@@ -25,12 +25,12 @@ class GestorBiblioteca
         }
         else{
             $this->libros = [];
-            return $this->printLibros();
+            return $this->imprimirLibros();
         }
 
     }
 
-    public function printLibros():string
+    public function imprimirLibros():string
     {
         ksort($this->libros);
         $itemsInList ="";
@@ -53,7 +53,7 @@ class GestorBiblioteca
         if ($this->libros[$titulo] <= 0) {
             unset($this->libros[$titulo]);
         }
-        return $this->printLibros();
+        return $this->imprimirLibros();
 
     }
 
@@ -61,10 +61,10 @@ class GestorBiblioteca
     {
         if (!isset($this->libros[$titulo])) {
             $this->libros[$titulo] = $cantidad;
-            return $this->printLibros();
+            return $this->imprimirLibros();
         }
         $this->libros[$titulo] += $cantidad;
-        return $this->printLibros();
+        return $this->imprimirLibros();
     }
 
     /**
