@@ -42,6 +42,16 @@ class GestorBibliotecaTest extends TestCase
         $this->assertEquals("El libro indicado no está en préstamo",$result);
     }
 
+    /**
+     * @test
+     */
+    public function instruccionDevolverConTituloRegistradoDevuelveListaSinLibro()
+    {
+        $result = $this->gestor->gestionarBiblioteca("prestar dune");
+        $result = $this->gestor->gestionarBiblioteca("devolver dune");
+        $this->assertEquals("",$result);
+    }
+
 
 }
 

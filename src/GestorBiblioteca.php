@@ -18,15 +18,15 @@ class GestorBiblioteca
                 $this->libros[$titulo] = $cantidad;
                 return $this->printLibros();
             }
-            else{
-                $this->libros[$titulo] += $cantidad;
-                return $this->printLibros();
-            }
+            $this->libros[$titulo] += $cantidad;
+            return $this->printLibros();
+
         }
         else if ($instruccionPrincipal == "devolver"){
             if (!isset($this->libros[$titulo])){
                 return "El libro indicado no está en préstamo";
             }
+            unset($this->libros[$titulo]);
         }
 
         return null;
