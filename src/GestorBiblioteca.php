@@ -10,8 +10,20 @@ class GestorBiblioteca
     {
         $partes = explode(" ", $instruccion);
         $instruccionPrincipal = $partes[0];
-        $titulo = isset($partes[1])? strtolower($partes[1]) : "";
-        $cantidad = isset($partes[2])? (int)$partes[2] : 1;
+
+        if (count($partes) > 3) {
+            $cantidad = is_numeric(array_key_last($partes)) ? (int)$partes[array_key_last($partes)] : 1;
+            $titulo = "";
+            for ($i = 1; $i < count($partes)-1; $i++) {
+                $titulo .= " ". strtolower($partes[$i]);
+            }
+            $titulo = trim($titulo);
+        }
+        else {
+            $titulo = isset($partes[1])? strtolower($partes[1]) : "";
+            $cantidad = isset($partes[2])? (int)$partes[2] : 1;
+        }
+
 
         if ($instruccionPrincipal == "prestar"){
             return $this->prestarLibro($titulo, $cantidad);

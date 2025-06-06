@@ -58,7 +58,7 @@ class GestorBibliotecaTest extends TestCase
     public function instruccionVaciarDevuelveListaSinLibro()
     {
         $this->gestor->gestionarBiblioteca("prestar dune");
-        $this->gestor->gestionarBiblioteca("devolver Metafora");
+        $this->gestor->gestionarBiblioteca("devolver 1984");
         $result = $this->gestor->gestionarBiblioteca("vaciar");
         $this->assertEmpty($result);
     }
@@ -71,6 +71,15 @@ class GestorBibliotecaTest extends TestCase
         $this->gestor->gestionarBiblioteca("prestar fundacion 2");
         $result = $this->gestor->gestionarBiblioteca("prestar dune 3");
         $this->assertEquals("dune x3, fundacion x2",$result);
+    }
+
+    /**
+     * @test
+     */
+    public function instruccionPrestarConTituloDeLibroConEspaciosDevuelveLibro()
+    {
+        $result = $this->gestor->gestionarBiblioteca("prestar Cien Años de Soledad 2");
+        $this->assertEquals("cien años de soledad x2",$result);
     }
 
 
