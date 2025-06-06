@@ -15,15 +15,30 @@ class GestorBiblioteca
         if ($instruccionPrincipal == "prestar"){
             if (!isset($this->libros[$titulo])){
                 $this->libros[$titulo] = $cantidad;
-                return $titulo." x".$cantidad;
+                return $this->printLibros();
             }
             else{
-                $cantidadAntigua = $this->libros[$titulo];
-                $nuevaCantidad = $cantidadAntigua + $cantidad;
-                return $titulo." x".$nuevaCantidad;
+                $this->libros[$titulo] += $cantidad;
+                return $this->printLibros();
             }
         }
 
         return null;
     }
+
+    public function printLibros():string
+    {
+        ksort($this->libros);
+        $itemsInList ="";
+        foreach ($this->libros as $libro => $cantidad){
+            $itemsInList .= $libro." x".$cantidad;
+            $lastKey = array_key_last($this->libros);
+            if ($lastKey !== $libro){
+                $itemsInList .= ", ";
+            }
+        }
+        return $itemsInList;
+    }
+
+
 }
