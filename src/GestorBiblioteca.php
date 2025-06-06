@@ -14,19 +14,11 @@ class GestorBiblioteca
         $cantidad = $partes[2] ?? 1;
 
         if ($instruccionPrincipal == "prestar"){
-            if (!isset($this->libros[$titulo])){
-                $this->libros[$titulo] = $cantidad;
-                return $this->printLibros();
-            }
-            $this->libros[$titulo] += $cantidad;
-            return $this->printLibros();
+            return $this->prestarLibro($titulo, $cantidad);
 
         }
         else if ($instruccionPrincipal == "devolver"){
-            if (!isset($this->libros[$titulo])){
-                return "El libro indicado no está en préstamo";
-            }
-            unset($this->libros[$titulo]);
+            return $this->devolverLibro($titulo);
         }
 
         return null;
@@ -44,6 +36,34 @@ class GestorBiblioteca
             }
         }
         return $itemsInList;
+    }
+
+    /**
+     * @param string $titulo
+     * @return string
+     */
+    public function devolverLibro(string $titulo): string
+    {
+        if (!isset($this->libros[$titulo])) {
+            return "El libro indicado no está en préstamo";
+        }
+        unset($this->libros[$titulo]);
+        return $this->printLibros();
+    }
+
+    /**
+     * @param string $titulo
+     * @param int|string $cantidad
+     * @return string
+     */
+    public function prestarLibro(string $titulo, int|string $cantidad): string
+    {
+        if (!isset($this->libros[$titulo])) {
+            $this->libros[$titulo] = $cantidad;
+            return $this->printLibros();
+        }
+        $this->libros[$titulo] += $cantidad;
+        return $this->printLibros();
     }
 
 
