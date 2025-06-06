@@ -10,8 +10,8 @@ class GestorBiblioteca
     {
         $partes = explode(" ", $instruccion);
         $instruccionPrincipal = $partes[0];
-        $titulo = strtolower($partes[1]) ?? "";
-        $cantidad = $partes[2] ?? 1;
+        $titulo = isset($partes[1])? strtolower($partes[1]) : "";
+        $cantidad = isset($partes[2])? (int)$partes[2] : 1;
 
         if ($instruccionPrincipal == "prestar"){
             return $this->prestarLibro($titulo, $cantidad);
@@ -19,6 +19,9 @@ class GestorBiblioteca
         }
         else if ($instruccionPrincipal == "devolver"){
             return $this->devolverLibro($titulo);
+        }
+        else{
+            return "";
         }
 
         return null;

@@ -52,6 +52,17 @@ class GestorBibliotecaTest extends TestCase
         $this->assertEquals("",$result);
     }
 
+    /**
+     * @test
+     */
+    public function instruccionVaciarDevuelveListaSinLibro()
+    {
+        $this->gestor->gestionarBiblioteca("prestar dune");
+        $this->gestor->gestionarBiblioteca("devolver Metafora");
+        $result = $this->gestor->gestionarBiblioteca("vaciar");
+        $this->assertEmpty($result);
+    }
+
 
 }
 
